@@ -1,4 +1,0 @@
-- import_playbook: subscription.yml
-- import_playbook: deploy-db.yml
-- import_playbook: deploy-apps.yml
-- import_playbook: deploy-loadbalancer.yml

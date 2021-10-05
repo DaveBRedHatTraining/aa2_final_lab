@@ -13,7 +13,7 @@
   hosts: load_balancers,app_servers,database_servers
   become: true
   vars:
-    GUID: "{{GUID }}"
+    GUID: ${GUID}
 
   tasks:
     - name: Get control node network settings

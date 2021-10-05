@@ -1,0 +1,5 @@
+- import_playbook: z_Manage-Openstack-Servers.yml
+- import_playbook: z_Configure-Infra.yml
+- import_playbook: z_DNS-Configuration.yml
+- import_playbook: z_bind9-Configuration.yml
+- import_playbook: z_Test_Connectivity.yml
