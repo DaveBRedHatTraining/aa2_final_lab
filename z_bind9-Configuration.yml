@@ -9,7 +9,7 @@
   handlers:
     - name: restart bind9-pod
       ansible.builtin.systemd:
-        name: '{{ bind9_pod_service }}'
+        name: "{{ bind9_pod_service }}"
         state: restarted
 
   tasks:
@@ -24,7 +24,7 @@
     - name: Update bind9-pod zone file
       ansible.builtin.template:
         src: templates/example.com.zone.j2
-        dest: '{{ bind9_pod_zone_file }}'
+        dest: "{{ bind9_pod_zone_file }}"
         owner: root
         group: root
         mode: 0644

@@ -19,7 +19,7 @@ ansible-playbook main.yml
 ----
 
 
-=== Overall Architecture 
+=== Overall Architecture
 
 image::.images/ntier-app-topology.png[role="thumb center" width=80%]
 
@@ -60,7 +60,7 @@ Does firewalld need to be configured?
 ** Setting it up from scratch
 
 https://opensource.com/article/17/6/ansible-postgresql-operations
-  
+
 
 
 == Credits
@@ -69,4 +69,3 @@ https://opensource.com/article/17/6/ansible-postgresql-operations
 ** I used their phone app during debugging
 ** Shout out for their Ansible Automation Cookbook
 * Jeff Geerlinguy for his Ansible Galaxy Postgres Role
-

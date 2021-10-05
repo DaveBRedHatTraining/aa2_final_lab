@@ -5,6 +5,7 @@
   tags:
     - application_servers
     - flask
+
   roles:
     - role: firewall
       vars:

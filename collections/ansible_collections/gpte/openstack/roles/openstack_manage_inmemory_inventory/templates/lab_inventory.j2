@@ -2,6 +2,6 @@
 
 [{{item}}]
 {%   for entry in groups[item] | sort if entry != "control" %}
-{{ entry }}  
+{{ entry }}
 {%   endfor %}
 {% endfor %}

@@ -1,7 +1,7 @@
 ---
 # vars file for openstack_manage_security_groups
 osp_networks:
-  # Public Facing Network   
+  # Public Facing Network
   external:
     cloud_name: ospcloud
     network_name: ext_network
@@ -10,8 +10,7 @@ osp_networks:
     state: present
     external: true
 
-
-  # Private Facing Network   
+  # Private Facing Network
   internal:
     cloud_name: ospcloud
     network_name: int_network

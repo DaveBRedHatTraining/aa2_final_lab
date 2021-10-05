@@ -3,7 +3,6 @@ openstack_server_state: present
 openstack_cloud: "{{GUID}}-project"
 
 openstack_servers:
-
   - instance_name: app1
     AnsibleGroup: app_servers
     deployment: dev

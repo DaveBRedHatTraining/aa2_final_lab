@@ -1,6 +1,6 @@
 ---
 # vars file for openstack_manage_servers
-openstack_instances: 
+openstack_instances:
   - instance_name: app1
     group: apps
     deployment: dev

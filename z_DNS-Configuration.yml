@@ -6,7 +6,6 @@
     - gpte.openstack
 
   roles:
-
     - openstack_manage_inmemory_inventory
 
 - name: update resolve.conf

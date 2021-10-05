@@ -6,7 +6,6 @@
     - smoketest
 
   tasks:
-
     - name: Smoketest Postgres database
       postgresql_ping:
         db: flask_db
@@ -25,8 +24,8 @@
   gather_facts: false
   tags:
     - smoketest
-  tasks:
 
+  tasks:
     - name: Check webserver for correct response
       uri:
         url: "http://frontend1.example.com/ping"

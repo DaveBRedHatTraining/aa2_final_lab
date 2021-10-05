@@ -6,5 +6,4 @@
     - gpte.openstack
 
   roles:
-
     - openstack_manage_servers
