@@ -8,7 +8,7 @@
     satellite_katello_cert: http://satellite.example.com/pub/katello-ca-consumer-latest.noarch.rpm
 
   tasks:
-    - name: Gather network facts
+    - name: Gather Facts about Network
       setup:
         gather_subset:
           - "network"
@@ -16,7 +16,7 @@
       delegate_to: localhost
       connection: local
 
-    - name: DNS IP updated
+    - name: Update DNS IP
       lineinfile:
         state: present
         path: /etc/sysconfig/network-scripts/ifcfg-eth0
@@ -26,13 +26,13 @@
         - DNS1={{ hostvars.localhost.ansible_default_ipv4.address }}
       register: network_update
 
-    - name: restart network manager
+    - name: Restart NetMan
       service:
         name: NetworkManager
         state: restarted
       when: network_update.changed | bool
 
-    - name: install katello-ca-consumer package
+    - name: Install katello-ca-consumer package
       yum:
         name: http://satellite.example.com/pub/katello-ca-consumer-latest.noarch.rpm
         state: present
