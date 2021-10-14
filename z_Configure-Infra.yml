@@ -1,4 +1,4 @@
-- name: Play to automate process
+- name: Automated Infrastructure Config
   hosts: all
   become: yes
   vars:
@@ -32,13 +32,13 @@
         state: restarted
       when: network_update.changed | bool
 
-    - name: Install katello-ca-consumer package
+    - name: Install katello-ca-consumer Package
       yum:
         name: http://satellite.example.com/pub/katello-ca-consumer-latest.noarch.rpm
         state: present
         disable_gpg_check: true
 
-    - name: register system and attach subs
+    - name: Register System and Attach Subscriptions
       redhat_subscription:
         state: present
         activationkey: "{{ satellite_activationkey }}"

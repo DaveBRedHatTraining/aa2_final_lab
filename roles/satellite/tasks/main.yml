@@ -1,6 +1,6 @@
 ---
 # tasks file for roles/satellite
-- name: Add subscription
+- name: Add Subscription
   hosts: load_balancers,database_servers,app_servers
   become: yes
   vars:
@@ -8,7 +8,7 @@
     satellite_org: prod
 
   tasks:
-    - name: Gather network facts
+    - name: Gather Network Facts
       setup:
         gather_subset:
           - "network"
@@ -16,7 +16,7 @@
       delegate_to: localhost
       connection: local
 
-    - name: DNS IP updated
+    - name: Update DNS IP
       lineinfile:
         state: present
         path: /etc/sysconfig/network-scripts/ifcfg-eth0
@@ -26,19 +26,19 @@
         - DNS1={{ hostvars.localhost.ansible_default_ipv4.address }}
       register: network_update
 
-    - name: restart network manager
+    - name: Restart Netman
       service:
         name: NetworkManager
         state: restarted
       when: network_update.changed | bool
 
-    - name: install katello-ca-consumer package
+    - name: Install katello-ca-consumer Package
       yum:
         name: http://satellite.example.com/pub/katello-ca-consumer-latest.noarch.rpm
         disable_gpg_check: true
         state: latest
 
-    - name: register system and attach subs
+    - name: Register System and Attach Subscriptions
       redhat_subscription:
         state: present
         activationkey: "{{ satellite_activationkey }}"

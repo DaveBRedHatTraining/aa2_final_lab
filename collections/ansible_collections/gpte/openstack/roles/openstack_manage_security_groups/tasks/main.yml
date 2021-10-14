@@ -6,7 +6,7 @@
     msg: openstack_security_groups is not defined
 
 - when: openstack_security_groups is defined
-  name: Manage openstack security_groups
+  name: Manage Openstack security_groups
   block:
     - name: Create Security Group Apps
       os_security_group:

@@ -15,7 +15,7 @@
     postgres_port: 5432
 
   tasks:
-    - name: Remove Postgres packages
+    - name: Remove Postgres Packages
       package:
         name: "{{ __package }}"
         state: absent
@@ -26,7 +26,7 @@
       loop_control:
         loop_var: __package
 
-    - name: Remove Postgres 10 data directory
+    - name: Remove Postgres 10 Data Directory
       file:
         path: /var/lib/pgsql/10
         state: absent
@@ -36,7 +36,7 @@
         name: postgres
         state: absent
 
-- name: Teardown app_servers flask configuration
+- name: Teardown app_servers Flask Configuration
   hosts: app_servers
   become: true
   gather_facts: false
@@ -63,14 +63,10 @@
       - python3-devel
       - python3-pip
 
-    pip_dependencies:
-      []
-      #      - virtualenv
-      # - pip
-      # - psycopg2-binary
+    pip_dependencies: []
 
   tasks:
-    - name: Clean up service when it exists
+    - name: Clean up Service When it Exists
       block:
         - name: Check if systemd flask app service file exists
           stat:
@@ -85,9 +81,8 @@
                 name: "{{ flask_app_name }}.service"
                 state: stopped
                 enabled: no
-            #              ignore_errors: yes
 
-            - name: Remove systemd flask app service file
+            - name: Remove systemd Flask App Service File
               file:
                 path: "{{ __path }}"
                 state: absent
@@ -97,20 +92,18 @@
               loop_control:
                 loop_var: __path
 
-    - name: Remove pre-requisite pip3 packages
+    - name: Remove pip3 Dependencies
       pip:
         name: "{{ pip_dependencies }}"
         state: absent
-        executable:
-          /usr/bin/pip
-          #      ignore_errors: yes
+        executable: /usr/bin/pip
 
-    - name: Remove flask user
+    - name: Remove Flask User
       user:
         name: "{{ flask_user }}"
         state: absent
 
-    - name: Remove app yum packages
+    - name: Remove App yum Packages
       package:
         name: "{{ __package }}"
         state: absent
@@ -118,7 +111,7 @@
       loop_control:
         loop_var: __package
 
-    - name: Remove flask repo and virtualenv
+    - name: Remove Flask Repo and Virtualenv
       file:
         path: "{{ __path }}"
         state: absent
@@ -128,7 +121,7 @@
       loop_control:
         loop_var: __path
 
-- name: Teardown haproxy load balancer
+- name: Teardown HAProxy Load Balancer
   hosts: load_balancers
   gather_facts: false
   become: true
@@ -141,17 +134,12 @@
     - load_balancers
 
   tasks:
-    - name: Remove load balancer packages
+    - name: Remove Load Balancer Packages
       package:
         name: "{{ load_balancer_packages }}"
         state: absent
 
-#    - name: configure haproxy
-#      file:
-#        path: /etc/haproxy/haproxy.cfg
-#        state: absent
-
-- name: Teardown app_servers flask configuration
+- name: Teardown app_servers Flask Configuration
   hosts: app_servers
   become: true
   gather_facts: false
@@ -178,31 +166,26 @@
       - python3-devel
       - python3-pip
 
-    pip_dependencies:
-      []
-      #      - virtualenv
-      # - pip
-      # - psycopg2-binary
+    pip_dependencies: []
 
   tasks:
-    - name: Clean up service when it exists
+    - name: Clean up Flask Service When it Exists
       block:
-        - name: Check if systemd flask app service file exists
+        - name: Check if systemd Flask App Service File Exists
           stat:
             path: "/etc/systemd/system/{{ flask_app_name }}.service"
           register: r_flask_service
 
         - when: r_flask_service.stat.exists
-          name: Systemd configuration needs stopped and removed
+          name: Systemd Configuration Needs To Be Stopped and Removed
           block:
             - name: Stop systemd flask app service
               service:
                 name: "{{ flask_app_name }}.service"
                 state: stopped
                 enabled: no
-            #              ignore_errors: yes
 
-            - name: Remove systemd flask app service file
+            - name: Remove systemd Flask App Service File
               file:
                 path: "{{ __path }}"
                 state: absent
@@ -212,20 +195,18 @@
               loop_control:
                 loop_var: __path
 
-    - name: Remove pre-requisite pip3 packages
+    - name: Remove Pip3 Dependencies
       pip:
         name: "{{ pip_dependencies }}"
         state: absent
-        executable:
-          /usr/bin/pip
-          #      ignore_errors: yes
+        executable: /usr/bin/pip
 
-    - name: Remove flask user
+    - name: Remove Flask User
       user:
         name: "{{ flask_user }}"
         state: absent
 
-    - name: Remove app yum packages
+    - name: Remove App YUM Packages
       package:
         name: "{{ __package }}"
         state: absent
@@ -233,7 +214,7 @@
       loop_control:
         loop_var: __package
 
-    - name: Remove flask repo and virtualenv
+    - name: Remove Flask Repo and Virtualenv
       file:
         path: "{{ __path }}"
         state: absent

@@ -4,7 +4,7 @@
   become: no
 
   tasks:
-    - name: Destroy OSP instance
+    - name: Destroy OSP Instances
       os_server:
         name: "{{ __openstack_server.instance_name }}"
         state: absent

@@ -1,4 +1,9 @@
 - import_playbook: 1.Provision-Infra.yml
+
+# This isn't a typo - often the playbook will fail the first time round with some unresponsive hosts despite waiting
+#  for them to become available.
+# Solution is just to run the playbook a second time which works for whatever reason...
+
 - import_playbook: 1.Provision-Infra.yml
 - import_playbook: 2.Main.yml
 - import_playbook: 3.Smoke_Test.yml

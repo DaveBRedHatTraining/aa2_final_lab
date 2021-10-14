@@ -1,4 +1,4 @@
-- name: Deploy haproxy load balancer
+- name: Deploy HAProxy Load Balancer
   hosts: load_balancers
   gather_facts: false
   become: true

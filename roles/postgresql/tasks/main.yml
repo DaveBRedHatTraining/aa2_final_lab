@@ -1,9 +1,9 @@
 ---
 # tasks file for roles/postgresql
-- name: Disable local postgresql module
+- name: Disable Local PostgreSQL Module
   shell: "dnf -y module disable postgresql"
 
-- name: Install Postgres repo
+- name: Install Postgres Repo
   package:
     name: "{{ __package }}"
     state: present
@@ -13,12 +13,12 @@
   loop_control:
     loop_var: __package
 
-- name: Disable postgresql module
+- name: Disable Postgresql Module
   command: "dnf -qy module disable postgresql"
   args:
     warn: false
 
-- name: Install Postgres packages
+- name: Install Postgres Packages
   package:
     name: "{{ __package }}"
     state: present
@@ -28,19 +28,8 @@
     - "{{ postgres_library }}"
   loop_control:
     loop_var: __package
-#- name: Install Postgres packages
-#  package:
-#    name: "{{ __package }}"
-#    state: present
-#    disable_gpg_check: true
-#  loop:
-#    - "{{ postgres_rhel8_repo }}"
-#    - "{{ postgres_packages }}"
-#    - "{{ postgres_library }}"
-#  loop_control:
-#    loop_var: __package
 
-- name: Check if Postgres initialized
+- name: Check if Postgres is Initialized
   stat:
     path: "{{ postgres_12_data_dir }}/PG_VERSION"
   register: r_postgres_init_dir_state
@@ -50,28 +39,28 @@
   command: "{{ postgres_12_bin_path }}/postgresql-12-setup initdb"
   notify: restart_postgres
 
-- name: Setup Postgres for remote password auth
+- name: Setup Postgres for Remote Password Auth
   template:
     src: pg_hba.conf.j2
     dest: "{{ postgres_12_data_dir }}/pg_hba.conf"
   notify: restart_postgres
 
-- name: Setup Postgres to listen on network interfaces
+- name: Setup Postgres to Listen on Network Interfaces
   lineinfile:
     dest: "{{ postgres_12_data_dir }}/postgresql.conf"
     line: "listen_addresses = '*'"
     insertafter: "#listen_addresses"
   notify: restart_postgres
 
-- name: Setup Postgres as started and enabled on boot.
+- name: Setup Postgres as Started and Enabled on Boot.
   service:
     name: "{{ postgres_service }}"
     state: "{{ postgres_service_state | default('started') }}"
     enabled: "{{ postgres_service_enabled | default(true) }}"
 
-- name: Configure Postgres resources, user, database etc
+- name: Configure Postgres Resources, User, Database etc
   block:
-    - name: Setup Postgres database(s)
+    - name: Setup Postgres Database
       postgresql_db:
         name: "{{ __database.name }}"
         state: "{{ __database.state | default('present') }}"
@@ -79,7 +68,7 @@
       loop_control:
         loop_var: __database
 
-    - name: Create Postgres user#(s)
+    - name: Create Postgres user
       postgresql_user:
         name: "{{ __user.name }}"
         password: "{{ __user.password | default(omit) }}"

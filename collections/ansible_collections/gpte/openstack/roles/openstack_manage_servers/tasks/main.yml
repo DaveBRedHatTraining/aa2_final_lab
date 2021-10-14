@@ -1,6 +1,6 @@
 ---
 # tasks file for openstack_manage_servers
-- name: Create server instances
+- name: Create Server Instances
   os_server:
     name: "{{ __openstack_server.instance_name }}"
     state: "{{ openstack_server_state | default(__openstack_server.state) | default('present') }}"
@@ -21,7 +21,7 @@
   poll: 0
   register: r_instances
 
-- name: Wait for async OSP instance creation to complete
+- name: Wait For Async OSP Iinstance Creation to Complete
   async_status: "jid={{ item.ansible_job_id }}"
   register: r_wait
   until: r_wait.finished
@@ -30,7 +30,7 @@
 
 - when: openstack_server_state != 'absent' | default(true)
   block:
-    - name: Get Openstack server info
+    - name: Get Openstack Server Info
       os_server_info:
         server: "{{ __openstack_server.instance_name }}"
       loop: "{{ openstack_servers }}"
@@ -40,7 +40,7 @@
     - debug: var=item.1.private_v4
       loop: "{{ s_instances.results|subelements('openstack_servers') }}"
 
-    - name: Wait for servers by name to be available
+    - name: Wait for Servers by Name to Become Available
       wait_for:
         host: "{{ __ip.1.private_v4 }}"
         port: 22

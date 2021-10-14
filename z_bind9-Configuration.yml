@@ -1,4 +1,4 @@
-- name: Handle bind9-pod zone file
+- name: Configure bind9-pod Zone File
   hosts: control
   become: true
   gather_facts: false
@@ -13,7 +13,7 @@
         state: restarted
 
   tasks:
-    - name: Openstack instances
+    - name: Get info about Openstack instances
       ansible.builtin.os_server_info:
         region_name: "{{ openstack_region | default('regionOne') }}"
       delegate_to: localhost
